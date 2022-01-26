@@ -2,7 +2,7 @@
 use Illuminate\Support\Facades\Route;
 require_once __DIR__ . '../../vendor/autoload.php';
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,20 +14,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function () {
 
-    $app_id = Config::get('services.facebookApp.id');
-    $verion = Config::get('services.facebookApp.api_version');
-    $callBack = Config::get('services.facebookApp.callback');
-    $permissions = Config::get('services.facebookApp.permissions');
-    $loginUrl = "https://www.facebook.com/v12.0/dialog/oauth?client_id=$app_id&response_type=code&redirect_uri=$callBack&scope=$permissions";
-    
-    echo '<a href="' . $loginUrl . '">Log in with Facebook!</a>';
-});
-
-
+# login routes
 Route::get('/callback','LoginController@callback');
+Route::get('/login','LoginController@login');
+Route::get('/logout', 'LoginController@logout');
 
-Route::get('/welcome', function(){
-    return view('welcome');
-});
+
+# pages route
+Route::get('/', 'PagesController@welcome');

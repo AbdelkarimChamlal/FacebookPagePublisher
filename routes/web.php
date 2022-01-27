@@ -23,3 +23,16 @@ Route::get('/logout', 'LoginController@logout');
 
 # pages route
 Route::get('/', 'PagesController@welcome');
+Route::get('/pages', 'PagesController@pages');
+Route::get('/pages/{id}','PagesController@page');
+Route::get('/pages/{id}/create','PagesController@createPost');
+Route::post('/pages/{id}/create','PagesController@createPostHandler');
+
+
+# my testing are
+Route::get('/test', function(Request $req){
+    echo $_SERVER['REQUEST_TIME'], "<br>";
+    echo  strtotime("2021-02-01 21:52"), "<br>";
+    echo strtotime("2022-01-27 21:52") - $_SERVER['REQUEST_TIME']; 
+});
+

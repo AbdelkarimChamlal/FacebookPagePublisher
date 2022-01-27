@@ -53,7 +53,7 @@ class LoginController extends Controller
                 session(['access_token' => json_decode($exchangeResults['body'])->access_token]);
                 $userDetails = FacebookAPI::getUserDetails(session('access_token'));
                 $profile = json_decode($userDetails['body']);
-                session(['email' => $profile->email, 'name'=> $profile->name, 'id' => $profile->id]);
+                session(['name'=> $profile->name, 'id' => $profile->id]);
                 return redirect('/')->with('message', 'loged in');
             }
             # in case the code had expired or non valid

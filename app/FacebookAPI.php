@@ -75,6 +75,20 @@ class FacebookAPI
         return $data;
     }
 
+    # schedule a post to a facebook page
+    public static function scheduleMessage($access_token, $message, $schedule_time, $page_id){
+        $url ="https://graph.facebook.com/$page_id/feed?published=false&message=$message&scheduled_publish_time=$schedule_time&access_token=$access_token";
+        $request = new HTTP_Request2();
+        $request->setUrl($url);
+        $request->setMethod(HTTP_Request2::METHOD_POST);
+        $request->setConfig(array(
+            'follow_redirects' => TRUE
+        ));
+        $response = $request->send();
+        $data = ['body'=>$response->getBody(), 'httpCode'=>$response->getStatus()];
+        return $data;
+    }
+
     # post a picture to a facebook page
     public static function postPicture($access_token, $image_path, $message, $page_id){
         $request = new HTTP_Request2();
@@ -90,6 +104,21 @@ class FacebookAPI
         return $data;
     }
 
+    # schedule a picture to a facebook page
+    public static function schedulePicture($access_token, $image_path, $message, $schedule_time, $page_id){
+        $request = new HTTP_Request2();
+        $url = "https://graph.facebook.com/v12.0/$page_id/photos?published=false&message=$message&scheduled_publish_time=$schedule_time&access_token=$access_token";
+        $request->setUrl($url);
+        $request->setMethod(HTTP_Request2::METHOD_POST);
+        $request->setConfig(array(
+            'follow_redirects' => TRUE
+        ));
+        $request->addUpload('source', $image_path, $image_path, '<Content-Type Header>');
+        $response = $request->send();
+        $data = ['body'=>$response->getBody(), 'httpCode'=>$response->getStatus()];
+        return $data;
+    }
+
     # post a video to a facebook page
     public static function postVideo($access_token, $video_path, $video_title, $video_description, $page_id){
         $request = new HTTP_Request2();
@@ -98,6 +127,21 @@ class FacebookAPI
         $request->setMethod(HTTP_Request2::METHOD_POST);
         $request->setConfig(array(
           'follow_redirects' => TRUE
+        ));
+        $request->addUpload('source', $video_path, $video_path, '<Content-Type Header>');
+        $response = $request->send();
+        $data = ['body'=>$response->getBody(), 'httpCode'=>$response->getStatus()];
+        return $data;
+    }
+
+    # schedule a video to a facebook page
+    public static function scheduleVideo($access_token, $video_path, $video_title, $video_description, $schedule_time, $page_id){
+        $request = new HTTP_Request2();
+        $url = "https://graph-video.facebook.com/v12.0/$page_id/videos?published=false&title=$video_title&description=$video_description&scheduled_publish_time=$schedule_time&access_token=$access_token";
+        $request->setUrl($url);
+        $request->setMethod(HTTP_Request2::METHOD_POST);
+        $request->setConfig(array(
+            'follow_redirects' => TRUE
         ));
         $request->addUpload('source', $video_path, $video_path, '<Content-Type Header>');
         $response = $request->send();

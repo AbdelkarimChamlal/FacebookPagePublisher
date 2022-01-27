@@ -38,4 +38,8 @@ return [
         'api_version' => env('FACEBOOK_APP_API_VERSION')
     ],
 
+    'storage' => [
+        'abs_path' => env('STORAGE_FOLDER')
+    ],
+
 ];

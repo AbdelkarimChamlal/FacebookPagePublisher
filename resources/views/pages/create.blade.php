@@ -1,45 +1,71 @@
 @extends('../layouts.app')
 
 @section('content')
-    @if (count($errors) > 0)
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
+<div class="container">
+    <h3> CREATE NEW POST </h3>
+    <form action="/pages/{{$id}}/create" method="POST" class="postCreator row" enctype="multipart/form-data">
+        <div class="gridContainer">
+            <div>
+                POST TYPE
+            </div>
+            <div>
+                <select id="postType" class="form-control" name="postOptions">
+                    <option value="text" default>Text</option>
+                    <option value="picture">Picture</option>
+                    <option value="video">Video</option>
+                </select>
+            </div>
+        </div>
 
-    <h3> create new post </h3>
-    <form action="/pages/{{$id}}/create" method="POST" enctype="multipart/form-data">
-        <select id="postType" name="postOptions">
-            <option value="text" default>Text</option>
-            <option value="picture">Picture</option>
-            <option value="video">Video</option>
-        </select>
-        <div id="text-form">
-            <textarea name="textMessage" placeholder="post content"></textarea>
+        <div id="text-form" >
+            <div class="gridContainer">
+                <div>TEXT</div>
+                <textarea name="textMessage" class="form-control" placeholder="Whats on your mind?"></textarea>
+            </div>
         </div>
         <div id="picture-form" style="display:none;">
-            <textarea name="pictureMessage" placeholder="post content"></textarea><br>
-            <input type="file" name="image"/>
+            <div class="gridContainer">
+                <div>Picture Description</div>
+                <textarea class="form-control" name="pictureMessage" placeholder="What does this picture capture?"></textarea><br>
+            </div>
+            <div class="gridContainer">
+                <div>Picture file</div>
+                <input type="file" name="image"/>
+            </div>
+
         </div>
         <div id="video-form" style="display:none;">
-            <input type="text" name = "videoTitle" placeholder="video title"/><br>
-            <textarea name="videoDescription" placeholder="video Description"></textarea><br>
-            <input type="file" name="video"/>
+            <div class="gridContainer">
+                <div>Video Title</div>
+                <input type="text" class="form-control" name = "videoTitle" placeholder="What should this video be called?"/><br>
+            </div>
+            <div class="gridContainer">
+                <div>Video Description</div>
+                <textarea class="form-control" name="videoDescription" placeholder="What does this video Capture?"></textarea><br>
+            </div>
+            <div class="gridContainer">
+                <div>Video file</div>
+                <input type="file"  name="video"/>
+            </div>
         </div>
-        <select id="postTime" name="postTimeOptions">
-            <option value="now" default>Now</option>
-            <option value="schedule">Schedule</option>
-        </select>
-        <div id="schedule" style="display:none;">
-            <input type="text" name="scheduleTime" placeholder="yyyy-mm-dd hh:mm"/>
+        <br>
+        <div class="gridContainer">
+            <div>Publish Date</div>
+            <select id="postTime" class="form-control" name="postTimeOptions">
+                <option value="now" default>Now</option>
+                <option value="schedule">Schedule</option>
+            </select>
         </div>
-        <input type="submit" value="send"/>
-    </form>
 
+        <div id="schedule" style="display:none;">
+            <div class="gridContainer">
+                <div>Schedule Date</div>
+                <input type="text" class="form-control" name="scheduleTime" placeholder="yyyy-mm-dd hh:mm"/>
+            </div>
+        </div>
+        <input class="btn btn-primary" type="submit" value="send"/>
+    </form>
+</div>
 
     <script>
         var postTypes = document.getElementById("postType");

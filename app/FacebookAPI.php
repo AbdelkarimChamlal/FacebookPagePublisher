@@ -148,4 +148,101 @@ class FacebookAPI
         $data = ['body'=>$response->getBody(), 'httpCode'=>$response->getStatus()];
         return $data;
     }
+
+    # gets publish state.
+    public static function isPublished($access_token, $post_id){
+        $url = "https://graph.facebook.com/$post_id?fields=is_published&access_token=$access_token";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        $head = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        $data = ['body'=>$head, 'httpCode'=>$httpCode];
+        return $data;
+    }
+
+    # publish a post.
+    public static function publish($access_token, $post_id){
+        $url = "https://graph.facebook.com/$post_id?is_published=true&access_token=$access_token";
+        $request = new HTTP_Request2();
+        $request->setUrl($url);
+        $request->setMethod(HTTP_Request2::METHOD_POST);
+        $request->setConfig(array(
+          'follow_redirects' => TRUE
+        ));
+
+        $response = $request->send();
+        $data = ['body'=>$response->getBody(), 'httpCode'=>$response->getStatus()];
+        return $data;
+    }
+
+    # get post 
+    public static function getPost($access_token, $post_id){
+        $url = "https://graph.facebook.com/$post_id?access_token=$access_token";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        $head = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        $data = ['body'=>$head, 'httpCode'=>$httpCode];
+        return $data;
+    }
+
+    # update a video post 
+    public static function getVideo($access_token, $post_id){
+        $url = "https://graph.facebook.com/$post_id?fields=title,description&access_token=$access_token";
+        $request = new HTTP_Request2();
+        $request->setUrl($url);
+        $request->setMethod(HTTP_Request2::METHOD_GET);
+        $request->setConfig(array(
+        'follow_redirects' => TRUE
+        ));
+        $response = $request->send();
+        $data = ['body'=>$response->getBody(), 'httpCode'=>$response->getStatus()];
+        return $data;
+    }
+
+    # remove a post from a facebook page
+    public static function removePost($access_token, $post_id){
+        $url = "https://graph.facebook.com/$post_id?access_token=$access_token";
+        $request = new HTTP_Request2();
+        $request->setUrl($url);
+        $request->setMethod(HTTP_Request2::METHOD_DELETE);
+        $request->setConfig(array(
+        'follow_redirects' => TRUE
+        ));
+        $response = $request->send();
+        $data = ['body'=>$response->getBody(), 'httpCode'=>$response->getStatus()];
+        return $data;
+    }
+
+    # update a post message (used for text and pictures)
+    public static function updatePost($access_token, $post_id, $new_message){
+        $url = "https://graph.facebook.com/$post_id?message=$new_message&access_token=$access_token";
+        $request = new HTTP_Request2();
+        $request->setUrl($url);
+        $request->setMethod(HTTP_Request2::METHOD_POST);
+        $request->setConfig(array(
+        'follow_redirects' => TRUE
+        ));
+        $response = $request->send();
+        $data = ['body'=>$response->getBody(), 'httpCode'=>$response->getStatus()];
+        return $data;
+    }
+
+    # update a video post 
+    public static function updateVideo($access_token, $post_id, $video_title, $video_description){
+        $url = "https://graph.facebook.com/$post_id?title=$video_title&description=$video_description&access_token=$access_token";
+        $request = new HTTP_Request2();
+        $request->setUrl($url);
+        $request->setMethod(HTTP_Request2::METHOD_POST);
+        $request->setConfig(array(
+        'follow_redirects' => TRUE
+        ));
+        $response = $request->send();
+        $data = ['body'=>$response->getBody(), 'httpCode'=>$response->getStatus()];
+        return $data;
+    }
 }

@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap');
+:root {
+    --main-bg-color:#fffcf4;
+    --main-ft-color:#264e70;
+    --facebook-blue:#145DA0;
+  }
+
+html,body {
+    margin:0;
+    padding:0;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--main-ft-color);
+    background-color: var(--main-bg-color);
+    font-weight:600;
+}
+
+#link-btn a{
+    display:inline-block;
+    padding:0.35em 1.2em;
+    border:0.1em solid #000000;
+    margin:0 0.3em 0.3em 0;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    background-color: var(--main-bg-color);
+    text-decoration:none;
+    font-weight:600;
+    color: var(--main-ft-color);
+    text-align:center;
+    transition: all 0.2s;
+  }
+  #link-btn a:hover{
+    color:#ffffff;
+    background-color:var(--facebook-blue);
+  }
+
+  .postCreator{
+    width:80vw;
+    margin-left:auto;
+    margin-right:auto;
+    align-items: center;
+  }
+  .gridContainer{
+    display: grid;
+    grid-template-columns: 30% 70%;
+    width: 100%;
+  }
+  h3{
+    font-weight:600;
+    margin-bottom: 30px;
+  }
+
+  #removePost {
+    background-color: var(--facebook-blue);
+    color: var(--main-bg-color);
+    text-align: center;
+    padding: 20px;
+  }

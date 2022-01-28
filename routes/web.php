@@ -17,16 +17,26 @@ use App\Http\Controllers\LoginController;
 
 # login routes
 Route::get('/callback','LoginController@callback');
-Route::get('/login','LoginController@login');
 Route::get('/logout', 'LoginController@logout');
 
 
 # pages route
 Route::get('/', 'PagesController@welcome');
 Route::get('/pages', 'PagesController@pages');
-Route::get('/pages/{id}','PagesController@page');
-Route::get('/pages/{id}/create','PagesController@createPost');
-Route::post('/pages/{id}/create','PagesController@createPostHandler');
+Route::get('/login','PagesController@login');
+
+
+# posts route
+Route::get('/pages/{id}','PostsController@page');
+Route::get('/pages/{id}/create','PostsController@createPost');
+Route::post('/pages/{id}/create','PostsController@createPostHandler');
+Route::get('/pages/{id}/{post_id}/publish','PostsController@publishPost');
+Route::get('/pages/{page_id}/{post_id}/remove','PostsController@removePostConfirmation');
+Route::post('/pages/{page_id}/{post_id}/remove','PostsController@removePostHandler');
+
+Route::get('/pages/{id}/{post_id}/edit','PostsController@editPost');
+Route::post('/pages/{id}/{post_id}/edit','PostsController@editPostHandler');
+
 
 
 # my testing are

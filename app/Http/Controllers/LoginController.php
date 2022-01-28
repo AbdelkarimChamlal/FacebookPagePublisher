@@ -23,18 +23,7 @@ class LoginController extends Controller
         return true;
     }
 
-    public function login(Request $req){
-        #if user is already signed in
-        if(LoginController::loggedIn($req)) return redirect('/')->with('message',' already loged in');
-        
-        $app_id = Config::get('services.facebookApp.id');
-        $verion = Config::get('services.facebookApp.api_version');
-        $callBack = Config::get('services.facebookApp.callback');
-        $permissions = Config::get('services.facebookApp.permissions');
-        $authLink = FacebookAPI::getAuthLink($app_id,$verion,$callBack,$permissions);
 
-        return view('pages.login')->with('authLink',$authLink);
-    }
 
     public function callback(Request $req){
         #if user is already signed in
